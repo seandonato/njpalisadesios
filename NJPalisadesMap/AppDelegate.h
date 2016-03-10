@@ -12,6 +12,10 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic, assign) NSNumber *logoState;
+
+@property (nonatomic, assign) NSNumber *currentPoint;
+
 
 @end
 
