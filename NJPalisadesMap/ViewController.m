@@ -28,7 +28,7 @@ Routes *routeclass;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-
+//reordered this, put 1st line to 2nd, then it worked
     routeclass = [[Routes alloc] init];
     routeclass = [Routes sharedManager];
     [routeclass makeRoutes];
