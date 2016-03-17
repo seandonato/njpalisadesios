@@ -29,6 +29,8 @@
 
 
 
+
+
 @property (weak,nonatomic) IBOutlet UIImageView *logo;
 
 @property (nonatomic, retain) NSTimer *timer;

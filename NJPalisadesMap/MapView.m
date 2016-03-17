@@ -9,11 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "MapView.h"
 #import <CoreLocation/CoreLocation.h>
+#import "Routes.h"
 #define FBOX(x) [NSNumber numberWithDouble:x]
 
-
 #define METERS_PER_MILE 1609.344
-
 
 @interface MapView ()
 
@@ -21,23 +20,26 @@
 
 @implementation MapView
 
+int isOverlay = 0;
+
 NSMutableArray *steps;
 CLLocation *me;
+AppDelegate *appDelMV;
+Routes *routeClass;
 
 - (void)viewWillAppear:(BOOL)animated {
- 
-  
-}
 
+}
 
 - (void)viewDidLoad{
     
     [super viewDidLoad];
 
+    appDelMV = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    routeClass = [Routes sharedManager];
     
     self.aMap.delegate = self;
 
-    
     _longPath = [[NSMutableArray alloc] init];
 
     _locationManager = [[CLLocationManager alloc] init];
@@ -89,11 +91,29 @@ CLLocation *me;
 
 - (IBAction) trails:(id)sender{
     
-    NSArray *latArray = [NSArray arrayWithObjects:
-                        FBOX(40.851527), FBOX(40.851844), FBOX(40.852436), FBOX(40.852671),FBOX(40.854363),FBOX(40.854342),FBOX(40.85401), nil];
     
-    NSArray *longArray = [NSArray arrayWithObjects:
-                         FBOX(-73.962429), FBOX(-73.964027), FBOX(-73.963716), FBOX(-73.964006),FBOX(-73.963311),FBOX(-73.962907),FBOX(-73.962815), nil];
+    if(isOverlay ==1){
+        [_aMap removeOverlay:_routeLine];
+        isOverlay = 0;
+        _colorGuide.hidden = YES;
+        _clswitch.hidden = YES;
+        _trailColors.hidden = YES;
+        
+    }else{
+        isOverlay = 1;
+        
+        _colorGuide.hidden = NO;
+        _clswitch.hidden = NO;
+
+
+        if(_routeLine == nil){
+            
+            //old code pre core data
+            NSArray *latArray = [NSArray arrayWithObjects:
+                                 FBOX(40.851527), FBOX(40.851844), FBOX(40.852436), FBOX(40.852546),FBOX(40.852579),FBOX(40.853601),FBOX(40.853983),FBOX(40.854137), nil];
+            
+            NSArray *longArray = [NSArray arrayWithObjects:
+                                  FBOX(-73.962429), FBOX(-73.964027), FBOX(-73.963716), FBOX(-73.963823),FBOX(-73.964049),FBOX(-73.963587),FBOX(-73.962911),FBOX(-73.96245), nil];
     
     if (latArray.count == longArray.count) {
         for (int i = 0; i < latArray.count; i++) {
@@ -117,28 +137,43 @@ CLLocation *me;
         
         coordinates[index] = coordinate;
     }
-    
-    _routeLine = [MKPolyline polylineWithCoordinates:coordinates count:numberOfSteps];
-    
-    
-//    [_aMap addOverlay:polyLine];
 
-    
+//    _routeLine = appDelMV.longPath;
+            
+//            _routeLine = [MKPolyline polylineWithCoordinates:coordinates count:numberOfSteps];
+            _routeLine = routeClass.longLine;
+            
     [_aMap setVisibleMapRect:[_routeLine boundingMapRect]];
     
     [_aMap addOverlay:_routeLine];
-    
+            
+        }else{
+            
+            [_aMap addOverlay:_routeLine];
+
+        }
+        
+    }
     
 }
 
+- (IBAction) colors:(id)sender{
+    if(_clswitch.isOn){
+    _trailColors.hidden = NO;
+
+    }else{
+    
+    _trailColors.hidden = YES;
+    
+    }
+}
+
+
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
 {
-    
     MKPolylineView *polylineView = [[MKPolylineView alloc] initWithPolyline:overlay];
-    polylineView.strokeColor = [UIColor redColor];
-    polylineView.lineWidth = 1.0;
-    
-    
+    polylineView.strokeColor = [UIColor cyanColor];
+    polylineView.lineWidth = 4.0;
     return polylineView;
 }
 

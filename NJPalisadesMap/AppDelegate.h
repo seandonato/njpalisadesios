@@ -7,14 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import "Routes.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+
 @property (nonatomic, assign) NSNumber *logoState;
 
+
 @property (nonatomic, assign) NSNumber *currentPoint;
+
+@property (nonatomic, assign) NSNumber *currentPoint2;
+
+
 
 
 @end

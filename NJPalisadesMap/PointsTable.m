@@ -73,7 +73,7 @@ AppDelegate *appDelegate;
     appDelegate.currentPoint = ip;
     
     UITableViewController *songComp =
-    [self.storyboard instantiateViewControllerWithIdentifier:@"table2"];
+    [self.storyboard instantiateViewControllerWithIdentifier:@"Table2"];
     [self.navigationController pushViewController:songComp animated:YES];
     
     }

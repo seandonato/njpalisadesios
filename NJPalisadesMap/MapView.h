@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <CoreData/CoreData.h>
+#import "AppDelegate.h"
+#import "Routes.h"
 
 #ifndef MapView_h
 #define MapView_h
@@ -16,6 +19,9 @@
 #endif /* MapView_h */
 
 @interface MapView : UIViewController  <MKMapViewDelegate>
+
+@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
+
 
 @property (strong,nonatomic) NSMutableArray *longPath;
 
@@ -27,8 +33,12 @@
 
 @property (nonatomic, retain) MKPolyline *routeLine; //your line
 
-@property (nonatomic, retain) MKPolylineView *routeLineView; //overlay view
+@property (nonatomic, retain) MKPolyline *shore; //your line
 
+
+
+
+@property (nonatomic, retain) MKPolylineView *routeLineView; //overlay view
 
 @property (weak,nonatomic) IBOutlet UITextView *lat;
 @property (weak,nonatomic) IBOutlet UITextView *longi;
@@ -37,6 +47,13 @@
 - (IBAction)updateCoordinates:(id)sender;
 
 - (IBAction) trails:(id)sender;
+
+- (IBAction) colors:(id)sender;
+
+@property (weak,nonatomic) IBOutlet UILabel  *colorGuide;
+@property (weak,nonatomic) IBOutlet UISwitch *clswitch;
+
+@property (weak,nonatomic) IBOutlet UITextView *trailColors;
 
 @property (strong,nonatomic) CLLocationManager *locationManager;
 

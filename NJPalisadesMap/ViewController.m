@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "AppDelegate.h"
+#import "Routes.h"
 
 @interface ViewController ()
 
@@ -16,6 +17,7 @@
 int tracker;
 
 AppDelegate *appDel;
+Routes *routeclass;
 
 @implementation ViewController
 
@@ -27,6 +29,10 @@ AppDelegate *appDel;
 
 -(void)viewDidAppear:(BOOL)animated{
 
+    routeclass = [[Routes alloc] init];
+    routeclass = [Routes sharedManager];
+    [routeclass makeRoutes];
+    
     appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     // Do any additional setup after loading the view, typically from a nib.

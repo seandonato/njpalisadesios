@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 #ifndef InfoView_h
 #define InfoView_h
 
@@ -15,5 +16,12 @@
 #endif /* InfoView_h */
 
 @interface InfoView : UIViewController
+
+@property (weak,nonatomic) IBOutlet UIImageView *infoImage;
+
+
+@property (weak,nonatomic) IBOutlet UITextView *infoText;
+
+
 
 @end

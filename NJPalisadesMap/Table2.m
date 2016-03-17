@@ -21,13 +21,18 @@ NSArray *tableData2;
 
 AppDelegate *appDel2;
 
+int table;
+int tablePoint;
 
 - (void) viewDidLoad{
     //todo: different tabledata
     appDel2 = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if(appDel2.currentPoint.intValue == 2){
-    
+        table = 0;
     tableData2 = [NSArray arrayWithObjects:@"Fort Lee Historic Park",@"Kearney House",@"Women's Federation Monument",nil];
+    }else if(appDel2.currentPoint.intValue == 3){
+        table = 1;
+        tableData2 = [NSArray arrayWithObjects:@"Alpine Picnic Area/Boat Basin",@"Englewood Picnic Area/Marina",@"Ross Dock",nil];
     }
 }
 
@@ -57,14 +62,14 @@ AppDelegate *appDel2;
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    NSNumber *ip = [NSNumber numberWithInteger:indexPath.row];
-    //get number from index path (song directory)
+    NSNumber *ip2 = [NSNumber numberWithInteger:indexPath.row];
+        //get number from index path (song directory)
     //    NSData *data = [NSData dataWithContentsOfFile:  [ip stringByAppendingString: @"num"]];
     //    int i;
     //    [data getBytes: &i length: sizeof(i)];
     //    NSNumber *nn = [NSNumber numberWithInt:i];
         
-    appDel2.currentPoint = ip;
+    appDel2.currentPoint2 = ip2;
     UITableViewController *songComp =
     [self.storyboard instantiateViewControllerWithIdentifier:@"InfoView"];
     [self.navigationController pushViewController:songComp animated:YES];
